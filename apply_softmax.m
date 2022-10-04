@@ -22,10 +22,14 @@ function [softmax_out] = apply_softmax(in_array)
         for row = 1
             for column = 1
                 cal_maxarray(channel) = ((exp(in_array(row, column, channel))) - max_in) / prob;
+                
+                %output 1x1x10
+                softmax_out(row,column,channel) = cal_maxarray;
             end
         end
     end
-
-    softmax_out = max(cal_maxarray);
+    
+    %the highest probability stored in variable 'result'
+    result = max(cal_maxarray);
 end
 
