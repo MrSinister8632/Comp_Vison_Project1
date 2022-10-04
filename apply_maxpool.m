@@ -1,27 +1,23 @@
-function [img_maxpool] = apply_maxpool(image_m)
-    [row, column] = size(m);
-    count_pool += 1;
-    for channel = 1:3
-      for row = row
-          for column = row
-              img_maxpool(row,column,channel) = m(row,column,channel)/(255-0.5);
-          end
-      end
+function output = apply_maxpool(input)
+    % Find dimensions of the image
+    imgSize = size(input);
+    channels = imgSize(3);
+    
+    % Create new dimensions 
+    output = zeros(imgSize(1)/2,imgSize(1)/2,imgSize(3));
+    
+    for i = 1:channels
+        curChannel = input(:,:,i);
+        
+        % Create 4 arrays, split by 2x2 sections in orignal image
+        topLeft = curChannel(1:2:end,1:2:end);
+        topRight = curChannel(1:2:end,2:2:end);
+        botLeft = curChannel(2:2:end,1:2:end);
+        botRight = curChannel(2:2:end,2:2:end);
+        
+        topMax = max(topLeft,topRight);
+        botMax = max(botLeft,botRight);
+        
+        output(:,:,i) = max(topMax,botMax);
     end
 end
-
-%function apply_maxpool(m)
-%    [row, column] = size(m);
-%    #count_pool += 1;
-%    for channel = 1:3
-%        for row = row
-%            for column = row
-%                imgmaxpool(row,column,channel) = m(row,column,channel)/(255-0.5);
-%            end
-%        end
-%    end
-%    #set count_conv = 0;
-%    #set count_relu = 0;
-%    #move to conv
-%    #If count_pool = 3 -> stop and continue
-%end
