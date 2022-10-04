@@ -1,0 +1,4 @@
+load 'cifar10testdata.mat'
+load 'debuggingTest.mat'
+load 'CNNparameters'
+filterbanks
